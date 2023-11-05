@@ -119,10 +119,7 @@ if uploaded_files:
             if 'Difference in followers from previous day' in data.columns:
                 # Create a custom color scale
                 def custom_color_scale(val):
-                    if val >= 0:
-                        return 'rgba(54, 164, 235, 0.8)'
-                    else:
-                        return 'rgba(255, 77, 77, 0.8)'
+                    return 'rgba(54, 164, 235, 0.8)' if val >= 0 else 'rgba(255, 77, 77, 0.8)'
                 fig = px.bar(data, x="Date", y="Difference in followers from previous day", title="Difference in Daily Followers", 
                 text='Difference in followers from previous day', color='Difference in followers from previous day',
                 hover_data={'Difference in followers from previous day': ':.2f'}, color_discrete_map={val: custom_color_scale(val) for val in data['Difference in followers from previous day']})

@@ -119,12 +119,11 @@ def plot_radar_chart(data, columns):
     st.plotly_chart(fig)
 
 
-uploaded_files = st.file_uploader(
+if uploaded_files := st.file_uploader(
     "Choose CSV or Excel files to upload",
     accept_multiple_files=True,
-    type=['csv', 'xlsx'])
-
-if uploaded_files:
+    type=['csv', 'xlsx'],
+):
     data_list = []
     for uploaded_file in uploaded_files:
         # read the file
@@ -134,11 +133,9 @@ if uploaded_files:
             data = None
             if uploaded_file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
                 data = pd.read_excel(io.BytesIO(bytes_data))
-                AgGrid(data)
             else:
                 data = pd.read_csv(io.StringIO(bytes_data.decode('utf-8')))
-                AgGrid(data)
-
+            AgGrid(data)
         # preview the data
         #st.write('Preview of', uploaded_file.name)
         # st.write(data)
@@ -167,15 +164,15 @@ if uploaded_files:
         #style_metric_cards()
 
         # Generate specific charts based on the file name
-        if uploaded_file.name == "Last 60 days.xlsx" or uploaded_file.name == "Last 60 days.csv":
-    
+        if uploaded_file.name in ["Last 60 days.xlsx", "Last 60 days.csv"]:
+
             x_var = st.sidebar.selectbox("Select X variable for Last 60 days", data.columns)
             y_var = st.sidebar.selectbox("Select Y variable for Last 60 days", data.columns)
             show_regression_line = False
-    
+
             z_var_options = ["None"] + list(data.columns)
             z_var = st.sidebar.selectbox("Select Z variable for 3D charts (if applicable)", z_var_options)
-            
+
             # Allow user to select time frequency for resampling
             #time_frequency = st.sidebar.selectbox("Select time frequency", ["Day", "Week", "Month"])
 

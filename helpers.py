@@ -8,17 +8,14 @@ def process_results(data):
     # Loop through each video
     for idx, value in enumerate(data): 
         flattened_data[idx] = {}
-        # Loop through each property in each video 
+        # Loop through each property in each video
         for prop_idx, prop_value in value.items():
             # Check if nested
             if prop_idx in nested_values:
-                if prop_idx in skip_values:
-                    pass
-                else:
+                if prop_idx not in skip_values:
                     # Loop through each nested property
                     for nested_idx, nested_value in prop_value.items():
-                        flattened_data[idx][prop_idx+'_'+nested_idx] = nested_value
-            # If it's not nested, add it back to the flattened dictionary
+                        flattened_data[idx][f'{prop_idx}_{nested_idx}'] = nested_value
             else: 
                 flattened_data[idx][prop_idx] = prop_value
 

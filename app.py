@@ -30,17 +30,21 @@ def social_icons(width=24, height=24, **kwargs):
 
         icons_html = ""
         for name, url in kwargs.items():
-            icon_src = {
-                "youtube": "https://img.icons8.com/ios-filled/100/null/youtube-play.png",
-                "linkedin": "https://img.icons8.com/ios-filled/100/null/linkedin.png",
-                "github": "https://img.icons8.com/ios-filled/100/null/github--v2.png",
-                "wordpress": "https://img.icons8.com/ios-filled/100/null/wordpress--v1.png",
-                "email": "https://img.icons8.com/ios-filled/100/null/filled-message.png",
-                "website": "https://img.icons8.com/ios/100/null/domain--v1.png"
-            }.get(name.lower())
-
-            if icon_src:
-                icons_html += icon_template.format(url=url, icon_src=icon_src, alt_text=name.capitalize(), width=width, height=height)
+                if icon_src := {
+                    "youtube":
+                    "https://img.icons8.com/ios-filled/100/null/youtube-play.png",
+                    "linkedin":
+                    "https://img.icons8.com/ios-filled/100/null/linkedin.png",
+                    "github":
+                    "https://img.icons8.com/ios-filled/100/null/github--v2.png",
+                    "wordpress":
+                    "https://img.icons8.com/ios-filled/100/null/wordpress--v1.png",
+                    "email":
+                    "https://img.icons8.com/ios-filled/100/null/filled-message.png",
+                    "website":
+                    "https://img.icons8.com/ios/100/null/domain--v1.png",
+                }.get(name.lower()):
+                        icons_html += icon_template.format(url=url, icon_src=icon_src, alt_text=name.capitalize(), width=width, height=height)
 
         return icons_html
 st.subheader("So how do I use this?")
